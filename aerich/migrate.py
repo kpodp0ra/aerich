@@ -236,8 +236,8 @@ class Migrate:
                     if action == "change" and option == "name":
                         cls._add_operator(cls._rename_field(model, *change), upgrade)
                 # m2m fields
-                old_m2m_fields = old_model_describe.get("m2m_fields")
-                new_m2m_fields = new_model_describe.get("m2m_fields")
+                old_m2m_fields = {a['name']: a for a in old_model_describe.get("m2m_fields")}
+                new_m2m_fields = {a['name']: a for a in new_model_describe.get("m2m_fields")}
                 for action, option, change in diff(old_m2m_fields, new_m2m_fields):
                     if change[0][0] == "db_constraint":
                         continue
